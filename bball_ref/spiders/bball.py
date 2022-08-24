@@ -7,5 +7,5 @@ class Bball(scrapy.Spider):
     def parse(self, response):
         for link in response.css('li'):
             yield {
-                'name': link.css()
+                'name': link.get()
             }
