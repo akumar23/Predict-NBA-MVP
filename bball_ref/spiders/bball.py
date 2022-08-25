@@ -11,8 +11,23 @@ class Bball(scrapy.Spider):
         url = url_init.format(year)
         start_urls.append(url)    
 
+#method 1: doesn't split team from player name
     def parse(self, response):
-        for link in response.css('td.left'):
+        for link in response.css('td.left *::text'):
             yield {
-                'name': link.get()
+                'player' : link.get()
             }
+
+#method 2: doesn't loop through all the years with response
+"""
+    def parse(self, response):
+
+        data = {}
+
+        for link in response.css('td.left *::text'):
+            if len(link.get()) == 3:
+                data['team'] = link.get()
+            else:
+                data['player'] = link.get()
+        yield data
+"""
