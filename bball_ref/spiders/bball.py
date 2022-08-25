@@ -10,12 +10,9 @@ class Bball(scrapy.Spider):
     for year in years:
         url = url_init.format(year)
         start_urls.append(url)    
-    
-    print(start_urls)
-    print("")
 
     def parse(self, response):
-        for link in response.css('li'):
+        for link in response.css('td.left'):
             yield {
                 'name': link.get()
             }
